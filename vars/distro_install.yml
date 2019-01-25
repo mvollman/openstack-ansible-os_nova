@@ -19,7 +19,7 @@
 # enabled.
 #
 nova_package_list: |-
-  {% set packages = nova_distro_packages %}
+  {% set packages = nova_common_packages %}
   {% if nova_services['nova-novncproxy']['group'] in group_names or
       nova_services['nova-spicehtml5proxy']['group'] in group_names or
       nova_services['nova-serialconsole-proxy']['group'] in group_names %}
@@ -33,6 +33,21 @@ nova_package_list: |-
   {%   if nova_console_type == 'serialconsole' %}
   {%     set _ = packages.extend(nova_service_extra_distro_packages['serialconsole']) %}
   {%   endif %}
+  {% endif %}
+  {% if nova_services['nova-api-os-compute']['group'] in group_names %}
+  {%   set _ = packages.extend(nova_api_distro_packages) %}
+  {% endif %}
+  {% if nova_services['nova-placement-api']['group'] in group_names %}
+  {%   set _ = packages.extend(nova_placement_api_distro_packages) %}
+  {% endif %}
+  {% if nova_services['nova-conductor']['group'] in group_names %}
+  {%   set _ = packages.extend(nova_conductor_distro_packages) %}
+  {% endif %}
+  {% if nova_services['nova-consoleauth']['group'] in group_names %}
+  {%   set _ = packages.extend(nova_console_distro_packages) %}
+  {% endif %}
+  {% if nova_services['nova-scheduler']['group'] in group_names %}
+  {%   set _ = packages.extend(nova_scheduler_distro_packages) %}
   {% endif %}
   {% if nova_services['nova-compute']['group'] in group_names %}
   {%   if nova_virt_type in ['kvm', 'qemu'] %}

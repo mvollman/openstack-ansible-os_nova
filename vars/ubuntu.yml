@@ -20,24 +20,33 @@ libvirt_group: libvirt
 libvirt_service_name: libvirtd
 
 # Common apt packages
-nova_distro_packages:
+nova_common_packages:
   - genisoimage
   - git
   - iptables
   - python-openstackclient
   - libpython2.7
 
+# Source install apt packages
+nova_novnc_source_packages: "{{ nova_novnc_distro_packages }}"
+
+nova_compute_kvm_source_packages: "{{ nova_compute_kvm_distro_packages }}"
+
+nova_compute_lxd_source_packages: "{{ nova_compute_lxd_distro_packages }}"
+
+nova_compute_powervm_source_packages: "{{ nova_compute_powervm_distro_packages }}"
+
+nova_compute_barbican_source_packages: "{{ nova_compute_barbican_distro_packages }}"
+
+nova_compute_oslomsg_amqp1_distro_packages: "{{ nova_compute_oslomsg_amqp1_distro_packages }}"
+
+# Distro install apt packages
 nova_devel_distro_packages:
   - libpq-dev
   - libxml2-dev
   - python-httplib2
 
 nova_service_distro_packages:
-  - nova-api
-  - nova-conductor
-  - nova-consoleauth
-  - nova-placement-api
-  - nova-scheduler
   - python-memcache
   - python-novaclient
   - python-pymysql
@@ -56,6 +65,21 @@ nova_service_extra_distro_packages:
     - nova-spiceproxy
   serialconsole:
     - openstack-nova-serialproxy
+
+nova_api_distro_packages:
+  - nova-api
+
+nova_conductor_distro_packages:
+  - nova-conductor
+
+nova_console_distro_packages:
+  - nova-consoleauth
+
+nova_placement_api_distro_packages:
+  - nova-placement-api
+
+nova_scheduler_distro_packages:
+  - nova-scheduler
 
 nova_novnc_distro_packages:
   - libjs-jquery

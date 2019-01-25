@@ -19,14 +19,28 @@ nova_qemu_group: qemu
 libvirt_group: libvirt
 libvirt_service_name: libvirtd
 
-# Common yum packages
-nova_distro_packages:
+# Common zypper packages
+nova_common_packages:
   - genisoimage
   - git-core
   - iptables
   - python-openstackclient
   - libpython2_7-1_0
 
+# Source install zypper packages
+nova_novnc_source_packages: "{{ nova_novnc_distro_packages }}"
+
+nova_compute_kvm_source_packages: "{{ nova_compute_kvm_distro_packages }}"
+
+nova_compute_lxd_source_packages: "{{ nova_compute_lxd_distro_packages }}"
+
+nova_compute_powervm_source_packages: "{{ nova_compute_powervm_distro_packages }}"
+
+nova_compute_barbican_source_packages: "{{ nova_compute_barbican_distro_packages }}"
+
+nova_compute_oslomsg_amqp1_distro_packages: "{{ nova_compute_oslomsg_amqp1_distro_packages }}"
+
+# Distro install zypper packages
 nova_devel_distro_packages:
   - libxml2-devel
   - postgresql-devel
@@ -34,11 +48,6 @@ nova_devel_distro_packages:
   - which
 
 nova_service_distro_packages:
-  - openstack-nova-api
-  - openstack-nova-conductor
-  - openstack-nova-consoleauth
-  - openstack-nova-placement-api
-  - openstack-nova-scheduler
   - python-memcached
   - python-novaclient
   - python-PyMySQL
@@ -54,6 +63,21 @@ nova_service_extra_distro_packages:
   spice: []
   serialconsole:
     - openstack-nova-serialproxy
+
+nova_api_distro_packages:
+  - openstack-nova-api
+
+nova_conductor_distro_packages:
+  - openstack-nova-conductor
+
+nova_console_distro_packages:
+  - openstack-nova-consoleauth
+
+nova_placement_api_distro_packages:
+  - openstack-nova-placement-api
+
+nova_scheduler_distro_packages:
+  - openstack-nova-scheduler
 
 nova_novnc_distro_packages:
   - python-websockify
